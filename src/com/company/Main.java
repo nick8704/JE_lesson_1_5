@@ -6,22 +6,15 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.print("Please enter any integer positive number: ");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));) {
             int n = Integer.parseInt(reader.readLine());
-            int countDivider = 0;
             StringBuilder resultString = new StringBuilder();
             for (int i = 2; i <= n; i++) {
-                for (int j = 1; j <= i; j++) {
-                    if (i % j == 0) {
-                        countDivider++;
-                    }
+                if (isPrime(i)) {
+                    resultString.append(i).append(", ");
                 }
-                if (countDivider == 2) {
-                    resultString.append(i + ", ");
-                }
-                countDivider = 0;
             }
             System.out.println(resultString.substring(0, resultString.length() - 2) + ".");
         } catch (NumberFormatException e) {
@@ -29,5 +22,14 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isPrime(int number) {
+        for (int i = 2; i < number; i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
